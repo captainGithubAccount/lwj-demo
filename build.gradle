@@ -11,6 +11,17 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+
+        //region navigation插件对应依赖配置
+        //为了能使用navigation插件 eg: android闭包下的databinding enabled属性设为true
+        def nav_version = "2.3.5"
+        //include classpath
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        //endregion
+
+
+
     }
 }
 
