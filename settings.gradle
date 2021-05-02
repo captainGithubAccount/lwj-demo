@@ -1,3 +1,5 @@
+include ':service'
+include ':common'
 include ':splash'
 include ':app'
 rootProject.name = "LWJ-demo"

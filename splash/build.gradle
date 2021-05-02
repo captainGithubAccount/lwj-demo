@@ -9,19 +9,20 @@ if(isRelease){
 }
 apply plugin: 'kotlin-android'
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
 
         //如果是集成化模式不能有applicationId
         if(!isRelease) {
             //组件化模式能独立运行才能有applicationId
-            applicationId androidId.moduleApp_mylibrary
+            applicationId androidId.moduleAppId_splash
+            println("test - androidId.moduleAppId_splash" + androidId.moduleAppId_splash)
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -43,12 +44,7 @@ android {
 }
 
 dependencies {
+    implementation project(attachs.common)
+    depsSplash.each{k,v -> implementation v}
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

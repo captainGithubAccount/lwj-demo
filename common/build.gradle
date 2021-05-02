@@ -1,8 +1,8 @@
-plugins {
-    id 'com.android.application'
+apply from: '../basic.gradle'
 
-}
-apply from:'../basic.gradle'
+apply plugin: 'com.android.library'
+//不能独立运行
+
 apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-parcelize'
@@ -11,26 +11,22 @@ apply plugin: 'kotlin-kapt'
 //kotlin语言使用注入框架，databading都要用这个
 apply plugin: "androidx.navigation.safeargs.kotlin"
 //用于navigation传参的时候的一种保护,注意这个插件要配置依赖才可以使用
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion androidId.compileSdkVersion
-    println("test - androidId.compileSdkVersion value:" + androidId.compileSdkVersion)
     buildToolsVersion androidId.buildToolsVersion
 
     defaultConfig {
-        applicationId androidId.applicationId
         minSdkVersion androidId.minSdkVersion
         targetSdkVersion androidId.targetSdkVersion
         versionCode androidId.versionCode
         versionName androidId.versionName
-        //给Java组件暴露，标记，正式环境 和 测试环境的标记
-        //组件化 和 集成化的时候需要
-        //会加载到java BuildConfig类中作为静态常量isModule
-        buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
-        //@param boolean: 定义暴露的属性的类型
-        //@param isMoudle: 表示暴露给Java的属性的变量名
 
-
+        testInstrumentationRunner androidId.testInstrumentationRunner
+        consumerProguardFiles androidId.consumerProguardFiles
+    }
+    dataBinding{
+        enabled true
     }
 
     buildTypes {
@@ -46,21 +42,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding{
-        enabled true
-    }
 }
 
 dependencies {
+    depsCommon.each{k,v -> println("k is:" + k + "\nv is:" + v + "\n")}
     depsCommon.each{k,v -> implementation v}
 
-    //当产品要release的时候
-    if(isRelease){
-        //所有子模块要依附app壳，只能打包出一个app壳包
-        //implementation project(':splash')
+    //okhttp
+    //okhttp logging-interceptor
 
-        attachs.each{k,v -> implementation project(v)}
-        //这里可以使用一个foreach搞定所有
-        //上网搜foreach子模块依附app壳
-    }
+    //gson
+
+    //retrofit
+    //retrofit converter-gson
+
+    //utilcodex
 }
+
+
+
