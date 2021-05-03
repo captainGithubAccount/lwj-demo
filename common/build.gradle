@@ -10,9 +10,12 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 //kotlin语言使用注入框架，databading都要用这个
 apply plugin: "androidx.navigation.safeargs.kotlin"
+
+
 //用于navigation传参的时候的一种保护,注意这个插件要配置依赖才可以使用
 apply plugin: 'kotlin-android'
 android {
+
     compileSdkVersion androidId.compileSdkVersion
     buildToolsVersion androidId.buildToolsVersion
 
@@ -47,6 +50,7 @@ android {
 dependencies {
     depsCommon.each{k,v -> println("k is:" + k + "\nv is:" + v + "\n")}
     depsCommon.each{k,v -> implementation v}
+
 
     //okhttp
     //okhttp logging-interceptor

@@ -27,6 +27,21 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
+    sourceSets{
+        main{
+            if(!isRelease){
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            }else{
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java{
+                    //release时debug目录下文件不需要合并到主工程
+                    exclude '**/debug/**'
+                    //屏蔽debug里面的所有文件不打包apk, 这样正式环境下测试代码无法进入apk，以达到apk的瘦身
+
+                }
+            }
+        }
+    }
 
     buildTypes {
         release {
