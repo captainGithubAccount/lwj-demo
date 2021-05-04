@@ -19,7 +19,7 @@ import androidx.lifecycle.LifecycleOwner
 
 //region 扩展属性
 /*
-*  TODO(扩展lifeCycleOwner属性，便于和Fragment之间使用lifeCycleOwner一致性)
+*  TODO(扩展lifeCycleOwner属性，便于和Fragment使用的lifeCycleOwner保持一致性)
 * */
 val ComponentActivity.viewLifeCycleOwner: LifecycleOwner
     get() = this
