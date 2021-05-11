@@ -1,0 +1,14 @@
+com/lwj/common/BR.java
+ com.lwj.common.BR
+com/lwj/common/BuildConfig.java
+ com.lwj.common.BuildConfig
+com/lwj/common/DataBinderMapperImpl.java
+ com.lwj.common.DataBinderMapperImpl
+ com.lwj.common.DataBinderMapperImpl$InnerBrLookup
+ com.lwj.common.DataBinderMapperImpl$InnerLayoutIdLookup
+androidx/databinding/library/baseAdapters/BR.java
+ androidx.databinding.library.baseAdapters.BR
+androidx/databinding/DataBindingComponent.java
+ androidx.databinding.DataBindingComponent
+com/lwj/common/DataBindingTriggerClass.java
+ com.lwj.common.DataBindingTriggerClass

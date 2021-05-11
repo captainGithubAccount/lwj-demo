@@ -1,4 +1,4 @@
-apply from: '../basic.gradle'
+apply from: '../config.gradle'
 
 apply plugin: 'com.android.library'
 //不能独立运行
@@ -14,6 +14,12 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 //用于navigation传参的时候的一种保护,注意这个插件要配置依赖才可以使用
 apply plugin: 'kotlin-android'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 android {
 
     compileSdkVersion androidId.compileSdkVersion
@@ -27,7 +33,10 @@ android {
 
         testInstrumentationRunner androidId.testInstrumentationRunner
         consumerProguardFiles androidId.consumerProguardFiles
+
+
     }
+
     dataBinding{
         enabled true
     }
@@ -45,11 +54,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
-    depsCommon.each{k,v -> println("k is:" + k + "\nv is:" + v + "\n")}
-    depsCommon.each{k,v -> implementation v}
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    depsCommon.each{k,v -> print("\t依赖有k is:" + k + "v is:" + v + "\t" )}
+    depsCommon.each{k,v -> api v}
+    //注意这里一定要用api,而不是用implementation 否则依附common的module只能访问到common的基类，但是基类用到的依赖无法使用,会出现代码上都是红线但是代码提示无效
+
 
 
     //okhttp

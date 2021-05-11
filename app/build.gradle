@@ -2,15 +2,26 @@ plugins {
     id 'com.android.application'
 
 }
-apply from:'../basic.gradle'
+apply from:'../config.gradle'
+
 apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-parcelize'
 
 apply plugin: 'kotlin-kapt'
 //kotlin语言使用注入框架，databading都要用这个
+
 apply plugin: "androidx.navigation.safeargs.kotlin"
 //用于navigation传参的时候的一种保护,注意这个插件要配置依赖才可以使用
+
+//    ARouter配置,需要使用ARouter的module都要使用
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 
 android {
     compileSdkVersion androidId.compileSdkVersion
@@ -29,6 +40,7 @@ android {
         buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
         //@param boolean: 定义暴露的属性的类型
         //@param isMoudle: 表示暴露给Java的属性的变量名
+
 
 
     }
@@ -52,15 +64,23 @@ android {
 }
 
 dependencies {
-    depsCommon.each{k,v -> implementation v}
+//    depsCommon.each{k,v -> implementation v}
+
 
     //当产品要release的时候
     if(isRelease){
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
         //所有子模块要依附app壳，只能打包出一个app壳包
         //implementation project(':splash')
-
-        attachs.each{k,v -> implementation project(v)}
         //这里可以使用一个foreach搞定所有
         //上网搜foreach子模块依附app壳
+        attachs.each{k,v -> print("\t贴附module有" + v )}
+        attachs.each{k,v -> api project(v)}
+
+
+        //    ARouter配置,需要使用ARouter的module都要使用
+        kapt alibabaArouterCompiler.arouter
+        implementation depsCommon.arouterApi
     }
 }

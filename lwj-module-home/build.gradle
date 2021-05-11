@@ -1,0 +1,85 @@
+apply from: '../config.gradle'
+
+if(isRelease){
+    apply plugin: 'com.android.library'
+    //不能独立运行
+}else{
+    apply plugin: 'com.android.application'
+    //能独立运行
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+//    ARouter配置,需要使用ARouter的module都要使用
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
+android {
+    compileSdkVersion androidId.compileSdkVersion
+    buildToolsVersion androidId.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion androidId.minSdkVersion
+        targetSdkVersion androidId.targetSdkVersion
+        versionCode androidId.versionCode
+        versionName androidId.versionName
+
+        //如果是集成化模式不能有applicationId
+        if(!isRelease) {
+            //组件化模式能独立运行才能有applicationId
+            applicationId androidId.moduleAppId_splash
+            println("test - androidId.moduleAppId_home" + androidId.moduleAppId_home)
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    sourceSets{
+        main{
+            if(!isRelease){
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            }else{
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java{
+                    //release时debug目录下文件不需要合并到主工程
+                    exclude '**/debug/**'
+                    //屏蔽debug里面的所有文件不打包apk, 这样正式环境下测试代码无法进入apk，以达到apk的瘦身
+
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+ //   implementation project(":common")
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(attachs.home_api)
+    api project(attachs.common)
+
+//    .api化文件需要的依赖
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.4.31"
+
+
+//    ARouter配置,需要使用ARouter的module都要使用
+    kapt alibabaArouterCompiler.arouter
+    implementation depsCommon.arouterApi
+
+}
+
