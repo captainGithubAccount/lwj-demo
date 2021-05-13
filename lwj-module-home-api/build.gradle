@@ -59,9 +59,10 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     depsCommon.each{k,v -> print("\t依赖有k is:" + k + "v is:" + v + "\t" )}
     depsCommon.each{k,v -> api v}
-    //注意这里一定要用api,而不是用implementation 否则依附common的module只能访问到common的基类，但是基类用到的依赖无法使用
+    //注意这里一定要用api,而不是用implementation 否则依附common的module只能访问到common的基类，但是基类用到的依赖无法使用,会出现代码上都是红线但是代码提示无效
 
 
 

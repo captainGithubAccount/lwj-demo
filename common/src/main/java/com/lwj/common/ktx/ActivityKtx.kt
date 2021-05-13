@@ -6,12 +6,17 @@ import android.graphics.Color
 import android.os.Build
 import android.view.*
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+
+
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.*
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
@@ -55,6 +60,9 @@ fun<T: ViewDataBinding> Activity.bindView(view: View): T?{
 * 界面Activity的沉浸式状态栏，使得可以在状态栏显示部分需要的图片
 * node: 需要在setContentView之前调用该函数才生效
 * */
+
+
+/*
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun Activity.transparencyStatusBarDeprecated(){
     window.apply {
@@ -69,27 +77,27 @@ fun Activity.transparencyStatusBarDeprecated(){
 //博客上面设置了调用Window的setStatusBarColor()方法将状态栏设置成透明色
 }
 
+*/
+
+
 /*
 * TODO(透明化状态栏/沉浸式状态栏建议使用)
 * 界面Activity的沉浸式状态栏，使得可以在状态栏显示部分需要的图片
 * node: 需要在setContentView之前调用该函数才生效
 * */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Activity.transparencyStatusBar(view: View){
-    window?.apply {
-        addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-        addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        //可以尝试删掉前两行试试
-        statusBarColor = Color.TRANSPARENT
-        //取代了addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        insetsController?.run {
-            hide(WindowInsets.Type.statusBars())
-            hide(WindowInsets.Type.navigationBars())
-        }
-        //取代了decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_STABLE
+fun Activity.transparencyStatusBar(){
+//    拿到WindowInsetsControllerCompat对象
+    val insetsControllerCompat = WindowInsetsControllerCompat(window, window.decorView)
+    insetsControllerCompat?.run {
+//        隐藏状态栏
+        hide(statusBars())
+//        隐藏导航栏
+        hide(navigationBars())
     }
-    // Hide the status bar.
-//博客上面设置了调用Window的setStatusBarColor()方法将状态栏设置成透明色
+
+//    //导航栏隐藏时手势操作
+    insetsControllerCompat.systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 }
 
 /*

@@ -82,5 +82,7 @@ dependencies {
         //    ARouter配置,需要使用ARouter的module都要使用
         kapt alibabaArouterCompiler.arouter
         implementation depsCommon.arouterApi
+
+
     }
 }
