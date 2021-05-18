@@ -10,6 +10,9 @@ if(isRelease){
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+//navigation配置safe args
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 //    ARouter配置,需要使用ARouter的module都要使用
 kapt {
     arguments {
@@ -80,6 +83,10 @@ dependencies {
 //    ARouter配置,需要使用ARouter的module都要使用
     kapt alibabaArouterCompiler.arouter
     implementation depsCommon.arouterApi
+
+//  navigation
+    depsHome.each {k,v -> print("\t依赖有k is:" + k + "v is:" + v + "\t" )}
+    depsHome.each {k,v -> implementation v}
 
 }
 

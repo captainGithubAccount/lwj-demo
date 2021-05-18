@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- formal -->
+<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:android="http://schemas.android.com/apk/res/android"
+app:startDestination="@id/homeMainFragment"
+android:id="@+id/nav_graph">
+
+<!-- 至少要有一个fragment防止报错-->
+<fragment
+    android:id="@+id/homeMainFragment"
+    android:name="com.lwj.lwj_module_home.ui.main.home.HomeMainFragment"
+    android:label="fragment_home_main"
+    tools:layout="@layout/fragment_home_home" >
+    <!-- 定义跳转的动作 -->
+    <action
+        android:id="@+id/action_fragment_home_main_to_blankFragment2"
+        app:destination="@id/homeMineFragment" />
+</fragment>
+
+<fragment android:id="@+id/homeMineFragment"
+    android:name="com.lwj.lwj_module_home.ui.main.mine.HomeMineFragment"
+    android:label="fragment_home_mine"
+    tools:layout="@layout/fragment_home_mine">
+    <!-- action配置-->
+    <!--
+            app:destination="@id/a"
+            目的地:表示可以跳转到xxx目的地(可以为fragment或者activity)
+            app:enterAnim="@anim/nav_default_enter_anim"
+            进入动画
+            app:exitAnim="@anim/nav_default_exit_anim"
+            退出动画
+            app:launchSingleTop="true"
+            目的地的启动模式是否为SingleTop模式
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/a"
+            返回的时候使用的
+            app:popUpToInclusive="true"
+            若为true表示即使栈里面已经有a了仍然会创建一个新的a
+            若为false表示若栈里面有a则使用已经存在的a，默认为false
+
+    -->
+    <!--
+    <action android:id="@+id/action_b_to_a"
+        app:destination="@id/a"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/a"
+        app:popUpToInclusive="true"/>
+        -->
+</fragment>
+
+
+
+</navigation>
