@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">lwj-module-home</string>
+    <string name="home_nav_bottom_str_mine">我的</string>
+    <string name="home_nav_bottom_str_homepage">主页</string>
 </resources>

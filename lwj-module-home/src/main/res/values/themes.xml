@@ -18,7 +18,7 @@
 
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/homeTitleBarBgColor</item><!--标题栏颜色-->
-        <item name="colorPrimaryDark">@color/homeStatusBarBgcolor</item><!--状态栏颜色-->
-        <item name="colorAccent">@color/componentBgcolor</item><!--复选框，进度条的颜色-->
+        <item name="colorPrimaryDark">@color/homeStatusBarBgColor</item><!--状态栏颜色-->
+        <item name="colorAccent">@color/homeComponentBgColor</item><!--复选框，进度条的颜色-->
     </style>
 </resources>

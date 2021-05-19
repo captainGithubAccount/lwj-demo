@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:menu="@menu/item_home_navigation"
+        app:menu="@menu/menu_home_navigation_bottom"
          />
 
     <androidx.constraintlayout.widget.Guideline
